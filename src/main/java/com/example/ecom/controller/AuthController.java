@@ -1,13 +1,18 @@
 package com.example.ecom.controller;
 
 import com.example.ecom.dto.AuthenticationRequest;
+import com.example.ecom.dto.SignupRequest;
+import com.example.ecom.dto.UserDto;
 import com.example.ecom.entity.User;
 import com.example.ecom.repository.UserRepository;
+import com.example.ecom.services.auth.AuthService;
 import com.example.ecom.utils.JwtUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -35,6 +40,7 @@ public class AuthController {
 
     public static final String HEADER_STRING = "Authorization";
 
+    private final AuthService authService;
 
     @PostMapping("/authenticate")
     public void createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest,
@@ -60,6 +66,15 @@ public class AuthController {
             response.addHeader(HEADER_STRING, TOKEN_PREFIX + jwt);
         }
 
+    }
+
+    @PostMapping("/sign-up")
+    public ResponseEntity<?> signUpUser(@RequestBody SignupRequest signupRequest){
+        if(authService.hasUserWithEmail(signupRequest.getEmail())){
+            return new ResponseEntity<>("User Already Exists !", HttpStatus.NOT_ACCEPTABLE);
+        }
+        UserDto userDto = authService.createUser(signupRequest);
+        return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
 }
