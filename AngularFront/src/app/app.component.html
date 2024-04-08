@@ -1,14 +1,35 @@
-<mat-toolbar color="primary" class="navbar">
-  <span class="navbar-brand">E-Commerce</span>
-  <span class="spacer"></span>
-  <section>
-    <div class="example-button-row">
-      <button mat-flat-button color="primary" routerLink="/order" routerLinkActive="active">Track Order</button>
-      <button mat-flat-button color="primary" routerLink="/signup" routerLinkActive="active">Register</button>
-      <button mat-flat-button color="primary" routerLink="/login" routerLinkActive="active">Login</button>
-    </div>
-  </section>
-</mat-toolbar>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <!-- Container wrapper -->
+  <div class="container">
+    
+    <!-- Toggle button -->
+    <button class="navbar-toggler" type="button" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fas fa-bars"></i>
+    </button>
 
+    <!-- Collapsible wrapper -->
+    <div class="collapse navbar-collapse" id="navbarButtonsExample" mdbCollapse>
+      <!-- Left links -->
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link dashboard"  href="/">Dashboard</a>
+        </li>
+      </ul>
+
+      <div class="d-flex align-items-center">
+        <button type="button" routerLink="/order" routerLinkActive="active" class="btn px-3 me-2">
+          Track Order
+        </button>
+        <button type="button" routerLink="/login" routerLinkActive="active" class="btn px-3 me-2">
+          Login
+        </button>
+        <button type="button" routerLink="/signup" routerLinkActive="active" class="btn btn-primary me-3">
+          Sign up
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
 
 <router-outlet></router-outlet>
