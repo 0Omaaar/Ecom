@@ -1,35 +1,119 @@
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <!-- Container wrapper -->
-  <div class="container">
-    
-    <!-- Toggle button -->
-    <button class="navbar-toggler" type="button" aria-expanded="false" aria-label="Toggle navigation">
-      <i class="fas fa-bars"></i>
-    </button>
+<div *ngIf="!isAdminLoggedIn && !isCustomerLoggedIn">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-    <!-- Collapsible wrapper -->
-    <div class="collapse navbar-collapse" id="navbarButtonsExample" mdbCollapse>
-      <!-- Left links -->
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link dashboard"  href="/">Dashboard</a>
-        </li>
-      </ul>
+    <div class="container">
 
-      <div class="d-flex align-items-center">
-        <button type="button" routerLink="/order" routerLinkActive="active" class="btn px-3 me-2">
-          Track Order
-        </button>
-        <button type="button" routerLink="/login" routerLinkActive="active" class="btn px-3 me-2">
-          Login
-        </button>
-        <button type="button" routerLink="/signup" routerLinkActive="active" class="btn btn-primary me-3">
-          Sign up
-        </button>
+      <button class="navbar-toggler" type="button" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+
+
+      <div class="collapse navbar-collapse" id="navbarButtonsExample" mdbCollapse>
+
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link dashboard" href="/">Dashboard</a>
+          </li>
+        </ul>
+
+        <div class="d-flex align-items-center">
+          <button type="button" routerLink="/order" routerLinkActive="active" class="btn px-3 me-2">
+            Track Order
+          </button>
+          <button type="button" routerLink="/login" routerLinkActive="active" class="btn px-3 me-2">
+            Login
+          </button>
+          <button type="button" routerLink="/signup" routerLinkActive="active" class="btn btn-primary me-3">
+            Sign up
+          </button>
+        </div>
       </div>
     </div>
-  </div>
-</nav>
+  </nav>
+</div>
+<div *ngIf="isAdminLoggedIn">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+    <div class="container">
+
+      <button class="navbar-toggler" type="button" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+
+
+      <div class="collapse navbar-collapse" id="navbarButtonsExample" mdbCollapse>
+
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link dashboard" routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</a>
+          </li>
+        </ul>
+
+        <div class="d-flex align-items-center">
+          <button type="button" routerLink="/admin/analytics" routerLinkActive="active" class="btn px-3 me-2">
+            Analytics
+          </button>
+          <button type="button" routerLink="/admin/category" routerLinkActive="active" class="btn px-3 me-2">
+            Category
+          </button>
+          <button type="button" routerLink="/admin/product" routerLinkActive="active" class="btn px-3 me-2">
+            Product
+          </button>
+          <button type="button" routerLink="/admin/orders" routerLinkActive="active" class="btn px-3 me-2">
+            Orders
+          </button>
+          <button type="button" routerLink="/admin/post-coupon" routerLinkActive="active" class="btn px-3 me-2">
+            Post Coupon
+          </button>
+          <button type="button" routerLink="/admin/coupons" routerLinkActive="active" class="btn px-3 me-2">
+            Coupons
+          </button>
+          <button type="button" (click)="logout()" routerLinkActive="active" class="btn px-3 me-2 btn-outline-danger">
+            Logout
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>
+<div *ngIf="isCustomerLoggedIn">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+    <div class="container">
+
+      <button class="navbar-toggler" type="button" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+
+
+      <div class="collapse navbar-collapse" id="navbarButtonsExample" mdbCollapse>
+
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link dashboard" routerLink="/customer/dashboard" routerLinkActive="active">Dashboard</a>
+          </li> 
+        </ul>
+
+        <div class="d-flex align-items-center">
+          <button type="button" routerLink="/customer/cart" routerLinkActive="active" class="btn px-3 me-2">
+            Cart
+          </button>
+          <button type="button" routerLink="/customer/my_orders" routerLinkActive="active" class="btn px-3 me-2">
+            Orders
+          </button>
+          <button type="button" routerLink="/customer/wishlist" routerLinkActive="active" class="btn px-3 me-2">
+            Wishlist
+          </button>
+          <button type="button" routerLink="/customer/profile" routerLinkActive="active" class="btn px-3 me-2">
+            Profile
+          </button>
+          <button type="button" (click)="logout()" routerLinkActive="active" class="btn px-3 me-2 btn-outline-danger">
+            Logout
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+</div>
 
 <router-outlet></router-outlet>
