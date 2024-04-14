@@ -29,7 +29,7 @@ public class WebSecurityConfiguration {
                 .permitAll()
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/**")
+                .requestMatchers("/api/**", "/admin/**")
                 .authenticated()
                 .and()
                 .sessionManagement()
