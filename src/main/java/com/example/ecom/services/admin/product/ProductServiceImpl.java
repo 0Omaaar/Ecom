@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
@@ -35,5 +36,11 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductDto> getAllProducts() {
         List<Product> products = productRepository.findAll();
         return products.stream().map(Product::getDto).toList();
+    }
+
+    @Override
+    public List<ProductDto> getAllProductsByName(String name) {
+        List<Product> productList = productRepository.findAllByNameContaining(name);
+        return productList.stream().map(Product::getDto).collect(Collectors.toList());
     }
 }

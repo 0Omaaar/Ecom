@@ -28,4 +28,11 @@ public class AdminProductController {
         List<ProductDto> productDtos = productService.getAllProducts();
         return ResponseEntity.ok(productDtos);
     }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/search/{name}")
+    public ResponseEntity<List<ProductDto>> getAllProductsByName(@PathVariable String name){
+        List<ProductDto> productDtos = productService.getAllProductsByName(name);
+        return ResponseEntity.ok(productDtos);
+    }
 }

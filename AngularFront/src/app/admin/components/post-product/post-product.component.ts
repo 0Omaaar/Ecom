@@ -56,9 +56,9 @@ export class PostProductComponent {
   }
 
   addProduct() {
-    console.log("add product Called");
+    // console.log("add product Called");
     if(this.productForm.valid){
-      console.log("first if");
+      // console.log("first if");
       const formData: FormData = new FormData();
       formData.append('img', this.selectedFile);
       formData.append('categoryId', this.productForm.get('categoryId').value);

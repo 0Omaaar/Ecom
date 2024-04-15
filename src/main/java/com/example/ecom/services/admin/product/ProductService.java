@@ -10,4 +10,6 @@ public interface ProductService {
     ProductDto addProduct(ProductDto product) throws IOException;
 
     List<ProductDto> getAllProducts();
+
+    List<ProductDto> getAllProductsByName(String name);
 }
