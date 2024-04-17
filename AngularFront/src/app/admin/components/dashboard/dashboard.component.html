@@ -5,9 +5,9 @@
         <!-- <button mat-button matSuffix class="search-button" color="primary" [disabled]="searchProductForm.invalid">
             <mat-icon>search</mat-icon>
         </button> -->
-        <button matSuffix mat-icon-button  color="primary" [disabled]="searchProductForm.invalid">
+        <button matSuffix mat-icon-button color="primary" [disabled]="searchProductForm.invalid">
             <mat-icon>search</mat-icon>
-          </button>
+        </button>
     </mat-form-field>
 </form>
 
@@ -40,7 +40,7 @@
                     [routerLink]="'/admin/faq/'+product.id">FAQ</button>
                 <button mat-raised-button color="accent" class="update-button"
                     [routerLink]="'/admin/product/'+product.id">Update</button>
-                <button mat-raised-button color="warn" class="delete-button">Delete</button>
+                <button mat-raised-button color="warn" class="delete-button" (click)="deleteProduct(product.id)">Delete</button>
             </div>
         </div>
     </mat-card>

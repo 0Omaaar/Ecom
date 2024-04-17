@@ -26,7 +26,8 @@ import { HttpClientModule } from '@angular/common/http';
   ],
   providers: [
     provideClientHydration(),
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    provideClientHydration()
   ],
   bootstrap: [AppComponent]
 })
