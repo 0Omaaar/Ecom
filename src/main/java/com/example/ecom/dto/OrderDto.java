@@ -34,5 +34,7 @@ public class OrderDto {
 
     private String userName;
 
+    private String couponName;
+
     private List<CartItemsDto> cartItems;
 }

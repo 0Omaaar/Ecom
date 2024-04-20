@@ -16,4 +16,5 @@ public class CouponDto {
     private Long discount;
 
     private Date expirationDate;
+
 }
