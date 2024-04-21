@@ -146,6 +146,39 @@ public class CartServiceImpl implements CartService {
         return null;
     }
 
+    @Override
+    public OrderDto decreaseProductQuantity(AddProductInCartDto addProductInCartDto) {
+        Order activeOrder = orderRepository.findByUserIdAndOrderStatus(addProductInCartDto.getUserId(), OrderStatus.Pending);
+
+        Optional<Product> optionalProduct = productRepository.findById(addProductInCartDto.getProductId());
+        Optional<CartItems> optionalCartItems = cartItemsRepository.findByProductIdAndOrderIdAndUserId(addProductInCartDto.getProductId(),
+                activeOrder.getId(), addProductInCartDto.getUserId());
+
+        if(optionalProduct.isPresent() && optionalCartItems.isPresent()){
+            CartItems cartItems = optionalCartItems.get();
+            Product product = optionalProduct.get();
+
+            activeOrder.setAmount(activeOrder.getAmount() - product.getPrice());
+            activeOrder.setTotalAmount(activeOrder.getTotalAmount() - product.getPrice());
+
+            cartItems.setQuantity(cartItems.getQuantity() - 1);
+
+            if(activeOrder.getCoupon() != null){
+
+                double discountAmount = (activeOrder.getTotalAmount() * (activeOrder.getCoupon().getDiscount() / 100.0));
+                double netAmount = activeOrder.getTotalAmount() - discountAmount;
+
+                activeOrder.setAmount((long)netAmount);
+                activeOrder.setDiscount((long)discountAmount);
+            }
+
+            orderRepository.save(activeOrder);
+            cartItemsRepository.save(cartItems);
+            return activeOrder.getOrderDto();
+        }
+        return null;
+    }
+
 
     boolean couponIsExpired(Coupon coupon){
         Date dateExp = coupon.getExpirationDate();
