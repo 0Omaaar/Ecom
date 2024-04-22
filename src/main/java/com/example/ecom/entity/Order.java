@@ -33,7 +33,7 @@ public class Order {
 
     private UUID trackingId;
 
-    @OneToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 

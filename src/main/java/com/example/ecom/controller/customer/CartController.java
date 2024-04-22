@@ -2,6 +2,7 @@ package com.example.ecom.controller.customer;
 
 import com.example.ecom.dto.AddProductInCartDto;
 import com.example.ecom.dto.OrderDto;
+import com.example.ecom.dto.PlaceOrderDto;
 import com.example.ecom.exceptions.ValidationException;
 import com.example.ecom.repository.OrderRepository;
 import com.example.ecom.services.customer.cart.CartService;
@@ -44,5 +45,10 @@ public class CartController {
     @PostMapping("/deduction")
     public ResponseEntity<OrderDto> decreaseProductQuantity(@RequestBody AddProductInCartDto addProductInCartDto){
         return ResponseEntity.status(HttpStatus.CREATED).body(cartService.decreaseProductQuantity(addProductInCartDto));
+    }
+
+    @PostMapping("/placeOrder")
+    public ResponseEntity<OrderDto> placeOrder(@RequestBody PlaceOrderDto placeOrderDto){
+        return ResponseEntity.status(HttpStatus.CREATED).body(cartService.placeOrder(placeOrderDto));
     }
 }

@@ -6,11 +6,10 @@ import { Observable } from 'rxjs';
 const BASIC_URL = 'http://localhost:8080/';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CustomerService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getAllProducts(): Observable<any> {
     // console.log("get products called")
@@ -28,7 +27,7 @@ export class CustomerService {
   addToCart(productId: any): Observable<any> {
     const cartDto = {
       productId: productId,
-      userId: UserStorageService.getUserId()
+      userId: UserStorageService.getUserId(),
     };
 
     return this.http.post(BASIC_URL + 'api/customer/cart', cartDto, {
@@ -36,21 +35,21 @@ export class CustomerService {
     });
   }
 
-  increaseProductQuantity(productId: any): Observable<any>{
+  increaseProductQuantity(productId: any): Observable<any> {
     const cartDto = {
       productId: productId,
-      userId: UserStorageService.getUserId()
+      userId: UserStorageService.getUserId(),
     };
 
     return this.http.post(BASIC_URL + 'api/customer/addition', cartDto, {
       headers: this.createAuthorizationHeader(),
     });
   }
-  
-  decreaseProductQuantity(productId: any): Observable<any>{
+
+  decreaseProductQuantity(productId: any): Observable<any> {
     const cartDto = {
       productId: productId,
-      userId: UserStorageService.getUserId()
+      userId: UserStorageService.getUserId(),
     };
 
     return this.http.post(BASIC_URL + 'api/customer/deduction', cartDto, {
@@ -68,6 +67,13 @@ export class CustomerService {
   applyCoupon(code: any): Observable<any> {
     const userId = UserStorageService.getUserId();
     return this.http.get(BASIC_URL + `api/customer/coupon/${userId}/${code}`, {
+      headers: this.createAuthorizationHeader(),
+    });
+  }
+
+  placeOrder(orderDto: any): Observable<any> {
+    orderDto.userId = UserStorageService.getUserId();
+    return this.http.post(BASIC_URL + `api/customer/placeOrder`, orderDto, {
       headers: this.createAuthorizationHeader(),
     });
   }

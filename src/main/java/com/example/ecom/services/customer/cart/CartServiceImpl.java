@@ -3,6 +3,7 @@ package com.example.ecom.services.customer.cart;
 import com.example.ecom.dto.AddProductInCartDto;
 import com.example.ecom.dto.CartItemsDto;
 import com.example.ecom.dto.OrderDto;
+import com.example.ecom.dto.PlaceOrderDto;
 import com.example.ecom.entity.*;
 import com.example.ecom.enums.OrderStatus;
 import com.example.ecom.exceptions.ValidationException;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -174,6 +176,33 @@ public class CartServiceImpl implements CartService {
 
             orderRepository.save(activeOrder);
             cartItemsRepository.save(cartItems);
+            return activeOrder.getOrderDto();
+        }
+        return null;
+    }
+
+    @Override
+    public OrderDto placeOrder(PlaceOrderDto placeOrderDto) {
+        Order activeOrder = orderRepository.findByUserIdAndOrderStatus(placeOrderDto.getUserId(), OrderStatus.Pending);
+        Optional<User> optionalUser = userRepository.findById(placeOrderDto.getUserId());
+
+        if(optionalUser.isPresent()){
+            activeOrder.setAddress(placeOrderDto.getAddress());
+            activeOrder.setOrderDescription(placeOrderDto.getOrderDescription());
+            activeOrder.setOrderStatus(OrderStatus.Placed);
+            activeOrder.setDate(new Date());
+            activeOrder.setTrackingId(UUID.randomUUID());
+
+            orderRepository.save(activeOrder);
+
+            Order order = new Order();
+            order.setAmount(0L);
+            order.setTotalAmount(0L);
+            order.setDiscount(0L);
+            order.setUser(optionalUser.get());
+            order.setOrderStatus(OrderStatus.Pending);
+            orderRepository.save(order);
+
             return activeOrder.getOrderDto();
         }
         return null;
