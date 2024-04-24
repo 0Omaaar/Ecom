@@ -56,6 +56,12 @@ export class AdminService {
     })
   }
 
+  postFaq(productId: any, FAQDto: any):Observable<any>{
+    return this.http.post(BASIC_URL + `api/admin/faq/${productId}`, FAQDto, {
+      headers: this.createAuthorizationHeader(),
+    })
+  }
+
   deleteProduct(productId: any): Observable<any> {
     return this.http.delete(BASIC_URL + `api/admin/product/${productId}`, {
       headers: this.createAuthorizationHeader(),

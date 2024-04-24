@@ -1,11 +1,14 @@
 package com.example.ecom.controller.admin;
 
+import com.example.ecom.dto.FAQDto;
 import com.example.ecom.dto.ProductDto;
+import com.example.ecom.services.admin.faq.FAQService;
 import com.example.ecom.services.admin.product.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,6 +18,8 @@ import java.util.List;
 public class AdminProductController {
 
     private final  ProductService productService;
+
+    private final FAQService faqService;
 
     @PostMapping("/product")
     public ResponseEntity<ProductDto> addProduct(@ModelAttribute ProductDto productDto) throws IOException {  //modelAttribute cause we
@@ -46,6 +51,12 @@ public class AdminProductController {
 //            System.out.println("not deleted");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error");
         }
+    }
+
+
+    @PostMapping("/faq/{productId}")
+    public ResponseEntity<FAQDto> postFAQ(@PathVariable Long productId, @RequestBody FAQDto faqDto){
+        return ResponseEntity.status(HttpStatus.CREATED).body(faqService.postFAQ(productId, faqDto));
     }
 
 }
