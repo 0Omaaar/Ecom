@@ -103,6 +103,12 @@ export class CustomerService {
     });
   }
 
+  addWishlist(wishlistDto: any): Observable<any>{
+    return this.http.post(BASIC_URL + 'api/customer/wishlist', wishlistDto, {
+      headers: this.createAuthorizationHeader(),
+    });
+  }
+
   private createAuthorizationHeader(): HttpHeaders {
     return new HttpHeaders().set(
       'Authorization',
