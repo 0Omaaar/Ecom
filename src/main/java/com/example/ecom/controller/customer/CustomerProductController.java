@@ -1,5 +1,6 @@
 package com.example.ecom.controller.customer;
 
+import com.example.ecom.dto.ProductDetailDto;
 import com.example.ecom.dto.ProductDto;
 import com.example.ecom.services.customer.CustomerProductService;
 import lombok.RequiredArgsConstructor;
@@ -25,5 +26,12 @@ public class CustomerProductController {
     public ResponseEntity<List<ProductDto>> getAllProductsByName(@PathVariable String name){
         List<ProductDto> productDtos = customerProductService.searchProductByName(name);
         return ResponseEntity.ok(productDtos);
+    }
+
+    @GetMapping("/product/{productId}")
+    public ResponseEntity<ProductDetailDto> getProductDetailById(@PathVariable Long productId){
+        ProductDetailDto productDetailDto = customerProductService.getProductDetailById(productId);
+        if(productDetailDto == null) return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(productDetailDto);
     }
 }

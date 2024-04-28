@@ -18,6 +18,12 @@ export class CustomerService {
     });
   }
 
+  getProductDetailById(productId: number): Observable<any>{
+    return this.http.get(BASIC_URL + `api/customer/product/${productId}`, {
+      headers: this.createAuthorizationHeader()
+    })
+  }
+
   getAllProductsByName(name: any): Observable<any> {
     return this.http.get(BASIC_URL + `api/customer/search/${name}`, {
       headers: this.createAuthorizationHeader(),
