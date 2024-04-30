@@ -214,6 +214,15 @@ public class CartServiceImpl implements CartService {
                 OrderStatus.Delivered)).stream().map(Order::getOrderDto).collect(Collectors.toList());
     }
 
+    @Override
+    public OrderDto searchOrderByTrackingId(UUID trackingId) {
+        Optional<Order> optionalOrder = orderRepository.findByTrackingId(trackingId);
+        if(optionalOrder.isPresent()){
+            return optionalOrder.get().getOrderDto();
+        }
+        return null;
+    }
+
 
     boolean couponIsExpired(Coupon coupon){
         Date dateExp = coupon.getExpirationDate();

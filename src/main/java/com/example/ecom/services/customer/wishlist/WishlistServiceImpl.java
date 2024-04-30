@@ -10,7 +10,9 @@ import com.example.ecom.repository.WishlistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class WishlistServiceImpl implements WishlistService{
@@ -38,5 +40,10 @@ public class WishlistServiceImpl implements WishlistService{
             return wishlistRepository.save(wishlist).getWishlistDto();
         }
         return null;
+    }
+
+    @Override
+    public List<WishlistDto> getWishlistByUserId(Long userId) {
+        return wishlistRepository.findAllByUserId(userId).stream().map(Wishlist::getWishlistDto).collect(Collectors.toList());
     }
 }
