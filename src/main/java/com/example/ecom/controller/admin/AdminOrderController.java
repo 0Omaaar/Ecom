@@ -1,5 +1,6 @@
 package com.example.ecom.controller.admin;
 
+import com.example.ecom.dto.AnalyticsResponse;
 import com.example.ecom.dto.OrderDto;
 import com.example.ecom.services.admin.adminOrder.AdminOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,10 @@ public class AdminOrderController {
             return new ResponseEntity<>("Something Went Wrong !", HttpStatus.BAD_REQUEST);
         }
         return ResponseEntity.status(HttpStatus.OK).body(orderDto);
+    }
+
+    @GetMapping("/order/analytics")
+    public ResponseEntity<AnalyticsResponse> getAnalytics(){
+        return ResponseEntity.ok(adminOrderService.calculateAnalytics());
     }
 }
